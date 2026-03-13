@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeCast - 실시간 날씨 바이브</title>
+    <!-- Modern Typography: Outfit & Pretendard for KO -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="dynamic-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-panel main-header">
+            <div class="location-container">
+                <i data-lucide="map-pin" class="icon-location"></i>
+                <h1 id="location-name">현위치 파악 중...</h1>
+            </div>
+            <p id="current-date" class="date-text">오늘의 날씨 바이브를 확인 중입니다...</p>
+        </header>
+
+        <main class="dashboard">
+            <!-- Current Weather Section -->
+            <section class="current-weather glass-panel">
+                <div class="weather-top">
+                    <div class="temp-wrapper">
+                        <span id="current-temp" class="text-glow">--</span><span class="degree text-glow">°</span>
+                    </div>
+                </div>
+                <div class="weather-bottom">
+                    <div class="weather-desc">
+                        <img id="current-icon" class="weather-icon fade-in" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="weather icon" style="display:none;" />
+                        <span id="current-condition" class="condition-text">정보 요청 중</span>
+                    </div>
+                    <div class="wind-humidity">
+                        <span id="current-humidity"><i data-lucide="droplets"></i> <span id="humidity-val">--</span>%</span>
+                        <span id="current-wind"><i data-lucide="wind"></i> <span id="wind-val">--</span>m/s</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Air Quality / Fine Dust Section -->
+            <section class="air-quality glass-panel">
+                <h2 class="sub-title"><i data-lucide="wind"></i> 미세먼지 바이브</h2>
+                <div class="aqi-cards">
+                    <div class="aqi-card" id="pm10-card">
+                        <div class="aqi-label">미세먼지 (PM10)</div>
+                        <div class="aqi-main">
+                            <span class="aqi-value" id="pm10-value">--</span>
+                            <span class="aqi-unit">µg/m³</span>
+                        </div>
+                        <div class="aqi-status" id="pm10-status">--</div>
+                    </div>
+                    <div class="aqi-card" id="pm25-card">
+                        <div class="aqi-label">초미세먼지 (PM2.5)</div>
+                        <div class="aqi-main">
+                            <span class="aqi-value" id="pm25-value">--</span>
+                            <span class="aqi-unit">µg/m³</span>
+                        </div>
+                        <div class="aqi-status" id="pm25-status">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 24 Hour Forecast -->
+            <section class="forecast glass-panel">
+                <h2 class="sub-title"><i data-lucide="clock"></i> 앞으로 24시간 라인업</h2>
+                <div class="forecast-scroller" id="forecast-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>데이터 가져오는 중...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="glass-panel footer-note">
+            <p>데이터 제공: 노르웨이 기상청 (MET Norway), Open-Meteo API</p>
+        </footer>
+    </div>
+
+    <!-- Script loading -->
+    <script src="app.js"></script>
+</body>
+</html>

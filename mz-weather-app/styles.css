@@ -1,0 +1,407 @@
+:root {
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(20, 20, 30, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-highlight: rgba(255, 255, 255, 0.08);
+    
+    /* AQI Colors - vibrant, neon-like */
+    --status-good-bg: rgba(46, 213, 115, 0.2);
+    --status-good-text: #2ed573;
+    --status-mod-bg: rgba(255, 165, 2, 0.2);
+    --status-mod-text: #ffa502;
+    --status-bad-bg: rgba(255, 71, 87, 0.2);
+    --status-bad-text: #ff4757;
+    --status-vbad-bg: rgba(112, 161, 255, 0.2);
+    --status-vbad-text: #70a1ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f1015;
+    color: var(--text-primary);
+    font-family: 'Pretendard', 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    overscroll-behavior-y: none;
+}
+
+/* Background Animation */
+.dynamic-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background: linear-gradient(135deg, #090a0f 0%, #151a24 100%);
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.6;
+    animation: drift 20s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 60vw;
+    height: 60vw;
+    background: #6c5ce7;
+    top: -15%;
+    left: -15%;
+    animation-duration: 25s;
+}
+
+.orb-2 {
+    width: 50vw;
+    height: 50vw;
+    background: #00cec9;
+    bottom: -10%;
+    right: -10%;
+    animation-duration: 20s;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 40vw;
+    height: 40vw;
+    background: #ff7675;
+    top: 40%;
+    left: 30%;
+    animation-duration: 30s;
+    animation-delay: -10s;
+}
+
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(8%, 12%) scale(1.1); }
+    100% { transform: translate(-5%, -8%) scale(0.9); }
+}
+
+/* Layout Elements */
+.app-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 1;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    padding: 24px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.glass-panel:hover {
+    background: var(--glass-highlight);
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 28px;
+}
+
+.location-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-location {
+    color: #00cec9;
+    flex-shrink: 0;
+}
+
+#location-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.date-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-left: 2px;
+}
+
+/* Current Weather */
+.current-weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+}
+
+.temp-wrapper {
+    display: flex;
+    align-items: flex-start;
+    line-height: 0.8;
+}
+
+#current-temp {
+    font-size: 7rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -4px;
+    background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.6) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.degree {
+    font-size: 4rem;
+    font-weight: 300;
+    margin-left: 4px;
+    color: var(--text-primary);
+}
+
+.weather-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+    width: 100%;
+}
+
+.weather-desc {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0,0,0,0.25);
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+}
+
+.weather-icon {
+    width: 48px;
+    height: 48px;
+    filter: drop-shadow(0 0 12px rgba(255,255,255,0.3));
+}
+
+.condition-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.wind-humidity {
+    display: flex;
+    gap: 24px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.wind-humidity span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wind-humidity svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Subtitles */
+.sub-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+}
+
+.sub-title svg {
+    width: 20px;
+    height: 20px;
+    color: #bdc3c7;
+}
+
+/* Air Quality */
+.aqi-cards {
+    display: flex;
+    gap: 16px;
+}
+
+.aqi-card {
+    flex: 1;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease;
+}
+
+.aqi-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.03);
+}
+
+.aqi-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.aqi-main {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.aqi-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+}
+
+.aqi-unit {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.aqi-status {
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 12px;
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+/* AQI Status Dynamic Classes */
+.aqi-good { background: var(--status-good-bg); color: var(--status-good-text); }
+.aqi-moderate { background: var(--status-mod-bg); color: var(--status-mod-text); }
+.aqi-bad { background: var(--status-bad-bg); color: var(--status-bad-text); }
+.aqi-vbad { background: var(--status-vbad-bg); color: var(--status-vbad-text); }
+
+/* Forecast Scroller */
+.forecast-scroller {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.forecast-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.forecast-item {
+    min-width: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    background: rgba(0,0,0,0.2);
+    padding: 20px 12px;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.2s ease;
+}
+
+.forecast-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.forecast-time {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.forecast-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.forecast-temp {
+    font-size: 1.3rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Spinner & Loading */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 40px;
+    gap: 16px;
+    color: var(--text-secondary);
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top: 3px solid #00cec9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Footer */
+.footer-note {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 18px;
+    border-radius: 20px;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 400px) {
+    #current-temp { font-size: 5.5rem; }
+    .degree { font-size: 3rem; }
+    .aqi-cards { flex-direction: column; }
+    .aqi-card { flex-direction: row; justify-content: space-between; align-items: center; }
+    .aqi-status { margin-top: 0; }
+}
