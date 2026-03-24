@@ -158,19 +158,19 @@ function updateUI() {
     updateAQICard("pm10-status", "pm10-card", pm10, "pm10");
     updateAQICard("pm25-status", "pm25-card", pm25, "pm25");
 
-    // --- 24 Hour Forecast ---
+    // --- 12 Hour Forecast (현재 시각 ~ 12시간 후) ---
     const forecastContainer = document.getElementById("forecast-container");
     forecastContainer.innerHTML = ""; // Empty loader
-    
-    // Slice next 24 elements for 24-hours forecast
-    const next24 = timeseries.slice(1, 25);
-    
-    next24.forEach((period, index) => {
+
+    // 현재 시각(index 0)부터 12시간 후(index 12)까지 총 13개
+    const next12 = timeseries.slice(0, 13);
+
+    next12.forEach((period, index) => {
         const time = new Date(period.time);
         const hours = time.getHours();
-        
-        // Display '지금' if it's the very first, otherwise hour format
-        const displayTime = index === 0 ? "1시간 후" : `${hours.toString().padStart(2, '0')}시`;
+
+        // 첫 번째는 '지금', 이후는 시각 표시
+        const displayTime = index === 0 ? "지금" : `${hours.toString().padStart(2, '0')}시`;
         
         const temp = Math.round(period.data.instant.details.air_temperature);
         

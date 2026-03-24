@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /e/프로젝트/AI테스트/날씨확인하기/AI_TEST/mz-weather-app -type f -name *.html -o -name *.js -o -name *.css -o -name *.json -o -name *.md)"
+    ]
+  }
+}

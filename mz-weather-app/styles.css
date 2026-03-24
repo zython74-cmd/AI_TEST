@@ -12,7 +12,7 @@
     --status-mod-text: #ffa502;
     --status-bad-bg: rgba(255, 71, 87, 0.2);
     --status-bad-text: #ff4757;
-    --status-vbad-bg: rgba(112, 161, 255, 0.2);
+    --status-vbad-bg: rgba(112, 161, 255, 0.2);  
     --status-vbad-text: #70a1ff;
 }
 
@@ -309,6 +309,22 @@ body {
 .aqi-vbad { background: var(--status-vbad-bg); color: var(--status-vbad-text); }
 
 /* Forecast Scroller */
+.forecast-scroll-wrap {
+    position: relative;
+}
+
+.forecast-scroll-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 12px; /* padding-bottom 만큼 제외 */
+    width: 60px;
+    background: linear-gradient(to right, transparent, rgba(20, 15, 30, 0.85));
+    pointer-events: none;
+    border-radius: 0 28px 28px 0;
+}
+
 .forecast-scroller {
     display: flex;
     gap: 16px;
